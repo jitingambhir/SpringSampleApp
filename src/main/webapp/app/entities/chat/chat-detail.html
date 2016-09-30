@@ -1,0 +1,39 @@
+
+<div>
+    <h2><span>Chat</span> {{vm.chat.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span>Message</span></dt>
+        <dd>
+            <span>{{vm.chat.message}}</span>
+        </dd>
+        <dt><span>Message Date</span></dt>
+        <dd>
+            <span>{{vm.chat.messageDate | date:'medium'}}</span>
+        </dd>
+        <dt><span>Chat Session</span></dt>
+        <dd>
+            <a ui-sref="chat-session-detail({id:vm.chat.chatSession.id})">{{vm.chat.chatSession.id}}</a>
+        </dd>
+        <dt><span>Message From</span></dt>
+        <dd>
+            {{vm.chat.messageFrom.id}}
+        </dd>
+        <dt><span>Message To</span></dt>
+        <dd>
+            {{vm.chat.messageTo.id}}
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="chat-detail.edit({id:vm.chat.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm"> Edit</span>
+    </button>
+</div>

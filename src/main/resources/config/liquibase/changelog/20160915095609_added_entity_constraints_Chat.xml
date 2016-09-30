@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <!--
+        Added the constraints for entity Chat.
+    -->
+    <changeSet id="20160915095609-2" author="iqmix">
+        
+        <addForeignKeyConstraint baseColumnNames="chat_session_id"
+                                 baseTableName="chat"
+                                 constraintName="fk_chat_chat_session_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="chat_session"/>
+
+        <addForeignKeyConstraint baseColumnNames="message_from_id"
+                                 baseTableName="chat"
+                                 constraintName="fk_chat_message_from_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="user"/>
+
+        <addForeignKeyConstraint baseColumnNames="message_to_id"
+                                 baseTableName="chat"
+                                 constraintName="fk_chat_message_to_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="user"/>
+
+    </changeSet>
+</databaseChangeLog>

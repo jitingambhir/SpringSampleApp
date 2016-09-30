@@ -1,0 +1,77 @@
+<div>
+    <h2>User Administration</h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    <div class="col-md-10">
+    	
+    </div>
+      <div class="col-md-2">
+          <button class="btn btn-primary" ui-sref="user-management.new">
+              <span class="glyphicon glyphicon-flash"></span> <span>Add User</span>
+          </button>
+      </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
+                <th jh-sort-by="id"><span>User ID</span><span class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="login"><span>Username</span> <span class="glyphicon glyphicon-sort"></span></th>
+                <th ><span>Company</span> <span class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="email"><span>Email ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                <th>Contact Details</th>
+                <th>Status</th>
+                <th>Email Verified</th>
+                <th class="text-center">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="user in vm.users track by user.id">
+                <td><a ui-sref="user-management-detail({login:user.login})">{{user.id}}</a></td>
+                <td>{{user.login}}</td>
+                <td>{{user.companyName}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.contactDetails}}</td>
+                <td>
+                    <span class="label label-danger" ng-click="vm.setActive(user, true)" ng-show="!user.activated"
+                          style="cursor: pointer;">Deactivated</span>
+                    <span class="label label-success" ng-click="vm.setActive(user, false)" ng-show="user.activated"
+                          style="cursor: pointer;">Activated</span>
+                </td>
+                <td>
+                    <span class="label label-danger" ng-click="vm.setActive(user, true)" ng-show="!user.activated"
+                          style="cursor: pointer;">No</span>
+                    <span class="label label-success" ng-click="vm.setActive(user, false)" ng-show="user.activated"
+                          style="cursor: pointer;">Yes</span>
+                </td>
+                <td class="text-center">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                ui-sref="user-management-detail({login:user.login})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                            <span class="hidden-xs hidden-sm"></span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="user-management.edit({login:user.login})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            <span class="hidden-xs hidden-sm"></span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="user-management.delete({login:user.login})"
+                                class="btn btn-danger btn-sm" ng-disabled="vm.currentAccount.login==user.login">
+                            <span class="glyphicon glyphicon-remove-circle"></span>
+                            <span class="hidden-xs hidden-sm"></span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center">
+        <jhi-item-count page="vm.page" total="vm.queryCount" items-per-page="vm.itemsPerPage"></jhi-item-count>
+        <uib-pagination class="pagination-sm" total-items="vm.totalItems" ng-model="vm.page" ng-change="vm.transition()"></uib-pagination>
+    </div>
+</div>

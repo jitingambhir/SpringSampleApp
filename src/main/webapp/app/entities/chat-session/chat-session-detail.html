@@ -1,0 +1,47 @@
+
+<div>
+    <h2><span>Chat Session</span> {{vm.chatSession.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span>Start Date</span></dt>
+        <dd>
+            <span>{{vm.chatSession.startDate | date:'medium'}}</span>
+        </dd>
+        <dt><span>Source Url</span></dt>
+        <dd>
+            <span>{{vm.chatSession.sourceUrl}}</span>
+        </dd>
+        <dt><span>Email Flag</span></dt>
+        <dd>
+            <span>{{vm.chatSession.emailFlag}}</span>
+        </dd>
+        <dt><span>Callback Flag</span></dt>
+        <dd>
+            <span>{{vm.chatSession.callbackFlag}}</span>
+        </dd>
+        <dt><span>Questions Count</span></dt>
+        <dd>
+            <span>{{vm.chatSession.questionsCount}}</span>
+        </dd>
+        <dt><span>Answers Count</span></dt>
+        <dd>
+            <span>{{vm.chatSession.answersCount}}</span>
+        </dd>
+        <dt><span>Topic</span></dt>
+        <dd>
+            <span>{{vm.chatSession.topic}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="chat-session-detail.edit({id:vm.chatSession.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm"> Edit</span>
+    </button>
+</div>

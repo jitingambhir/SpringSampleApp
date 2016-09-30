@@ -1,0 +1,94 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myChatLabel">Create or edit a Chat</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.chat.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.chat.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_message">Message</label>
+            <input type="text" class="form-control" name="message" id="field_message"
+                    ng-model="vm.chat.message"
+                    required />
+            <div ng-show="editForm.message.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.message.$error.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_messageDate">Message Date</label>
+                <div class="input-group">
+                    <input id="field_messageDate" type="text" class="form-control" name="messageDate" datetime-picker="{{dateformat}}" ng-model="vm.chat.messageDate" is-open="vm.datePickerOpenStatus.messageDate"
+                    required  />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('messageDate')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+            <div ng-show="editForm.messageDate.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.messageDate.$error.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.messageDate.$error.ZonedDateTimelocal">
+                    This field should be a date and time.
+                </p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="field_chatSession">Chat Session</label>
+            <select class="form-control" id="field_chatSession" name="chatSession" ng-model="vm.chat.chatSession" ng-options="chatSession as chatSession.id for chatSession in vm.chatsessions track by chatSession.id" required>
+                <option value=""></option>
+            </select>
+        </div>
+        <div ng-show="editForm.chatSession.$invalid">
+            <p class="help-block"
+                ng-show="editForm.chatSession.$error.required">
+                This field is required.
+            </p>
+        </div>
+        <div class="form-group">
+            <label for="field_messageFrom">Message From</label>
+            <select class="form-control" id="field_messageFrom" name="messageFrom" ng-model="vm.chat.messageFrom" ng-options="user as user.id for user in vm.users track by user.id" required>
+                <option value=""></option>
+            </select>
+        </div>
+        <div ng-show="editForm.messageFrom.$invalid">
+            <p class="help-block"
+                ng-show="editForm.messageFrom.$error.required">
+                This field is required.
+            </p>
+        </div>
+        <div class="form-group">
+            <label for="field_messageTo">Message To</label>
+            <select class="form-control" id="field_messageTo" name="messageTo" ng-model="vm.chat.messageTo" ng-options="user as user.id for user in vm.users track by user.id" required>
+                <option value=""></option>
+            </select>
+        </div>
+        <div ng-show="editForm.messageTo.$invalid">
+            <p class="help-block"
+                ng-show="editForm.messageTo.$error.required">
+                This field is required.
+            </p>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

@@ -1,0 +1,89 @@
+<div>
+	<h2>Live Reports</h2>
+	<jhi-alert></jhi-alert>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xs-12 no-padding-right">
+				<form name="searchForm" class="form-inline">
+					<div class="input-group pull-right">
+						<input type="text" class="form-control" ng-model="vm.searchQuery"
+							id="searchQuery" placeholder="Query"> <span
+							class="input-group-btn width-min">
+							<button class="btn btn-info" ng-click="vm.search(vm.searchQuery)">
+								<span class="glyphicon glyphicon-search"></span>
+							</button>
+						</span> <span class="input-group-btn width-min" ng-if="vm.currentSearch">
+							<button class="btn btn-info" ng-click="vm.clear()">
+								<span class="glyphicon glyphicon-trash"></span>
+							</button>
+						</span>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<br />
+	<div class="table-responsive">
+		<table class="jh-table table table-striped">
+			<thead>
+				<tr jh-sort="vm.predicate" ascending="vm.reverse"
+					callback="vm.reset()">
+					<th></th>
+					<th jh-sort-by="id"><span>ID</span> <span
+						class="glyphicon glyphicon-sort"></span></th>
+					<th jh-sort-by="startDate"><span>Start Date</span> <span
+						class="glyphicon glyphicon-sort"></span></th>
+					<th jh-sort-by="sourceUrl"><span>Source Url</span> <span
+						class="glyphicon glyphicon-sort"></span></th>
+					<th jh-sort-by="emailFlag"><span>Email Flag</span> <span
+						class="glyphicon glyphicon-sort"></span></th>
+					<th jh-sort-by="callbackFlag"><span>Callback Flag</span> <span
+						class="glyphicon glyphicon-sort"></span></th>
+					<th jh-sort-by="questionsCount"><span>Questions Count</span> <span
+						class="glyphicon glyphicon-sort"></span></th>
+					<th jh-sort-by="answersCount"><span>Answers Count</span> <span
+						class="glyphicon glyphicon-sort"></span></th>
+					<th jh-sort-by="topic"><span>Topic</span> <span
+						class="glyphicon glyphicon-sort"></span></th>
+				</tr>
+			</thead>
+			<tbody infinite-scroll="vm.loadPage(vm.page + 1)"
+				infinite-scroll-disabled="vm.page >= vm.links['last']"
+				ng-repeat="chatSession in vm.chatSessions track by chatSession.id">
+				<tr>
+					<td ng-click="isOpen=!isOpen">{{chatSession.chats.length == 0 || isOpen ? '(-)' : '(+)'}}</td>
+					<td><a ui-sref="chat-session-detail({id:chatSession.id})">{{chatSession.id}}</a></td>
+					<td>{{chatSession.startDate | date:'medium'}}</td>
+					<td>{{chatSession.sourceUrl}}</td>
+					<td>{{chatSession.emailFlag}}</td>
+					<td>{{chatSession.callbackFlag}}</td>
+					<td>{{chatSession.questionsCount}}</td>
+					<td>{{chatSession.answersCount}}</td>
+					<td>{{chatSession.topic}}</td>
+				</tr>
+				<tr ng-if="chatSession.chats.length > 0 && isOpen">
+					<td colspan="9" class="panel-text">
+						<div class="mCustomScrollbar" id="accordion">
+							<div class="panel-border">
+								<div ng-repeat="chat in chatSession.chats">
+									<div class="left-comment-box" ng-if="chatSession.chats[0].messageFrom.id == chat.messageFrom.id">
+										<ul>
+											<li>{{chat.messageFrom.login}}</li>
+											<li>{{chat.message}}</li>
+										</ul>
+									</div>
+									<div class="left-comment-box right-comment-box" ng-if="chatSession.chats[0].messageTo.id == chat.messageFrom.id">
+										<ul>
+											<li>{{chat.message}}</li>
+											<li>{{chat.messageFrom.login}}</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

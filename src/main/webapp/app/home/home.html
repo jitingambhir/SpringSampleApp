@@ -1,0 +1,32 @@
+
+<div ng-switch="vm.isAuthenticated()">
+	<div class="content-left-box" ng-switch-when="true">
+		<h2 class="content-title">Sessions</h2>
+		<div id="container"
+			style="min-width: 310px; height: 400px; margin: 0 auto">
+			<nvd3 options='options' data='data'></nvd3>
+		</div>
+	</div>
+
+	<div class="content-right-box" ng-switch-when="true">
+		<h2 class="content-title">Trending Topics</h2>
+		<div class="datatable">
+			<table id="example" class="display" cellspacing="0" width="100%">
+				<thead>
+					<tr>
+						<th>Topic</th>
+						<th>Session count</th>
+						<th>sentiment</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="chatSession in vm.trendingChatSessions">
+						<td>{{chatSession.topic}}</td>
+						<td>{{chatSession.count}}</td>
+						<td>-</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
